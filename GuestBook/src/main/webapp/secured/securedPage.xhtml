@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <!--Seitentitel-->
+        <title>Secured</title>
+    </h:head>
+    <h:body>
+        <h:outputLabel value="Wilkomen #{Test.username} "/>
+        <h:form> 
+            <h:outputLabel value="Erstellen sie einen neuen Eintrag: " for="eintrag"/>
+            <h:inputText id="eintrag" maxlength="40" required="true" value="#{Test.entry}"/> 
+            <h:commandButton action="#{Test.makeEntry}" value="Eintragen"/>
+        </h:form>
+
+        <h:dataTable value="#{Test.entries}" var="e">
+            <h:column>
+                <h:outputText value="#{e.id}"/>
+            </h:column>
+            <h:column>
+                <h:outputText value="#{e.name}" />
+            </h:column>
+            <h:column>
+                <h:outputText value="#{e.entryDate}">
+                    <f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <h:outputText value="#{e.message}" escape="false"/>
+            </h:column>
+        </h:dataTable>
+
+        <h:form> 
+            <h:commandButton value="Log out" action="#{Test.doLogout()}"/>
+        </h:form> 
+    </h:body>
+</html>
+

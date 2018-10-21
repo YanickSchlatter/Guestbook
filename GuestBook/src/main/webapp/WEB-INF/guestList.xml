@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<guestbook>
+    <entry>
+        <id>001</id>
+        <name>Hans Müller</name>
+        <date>25.10.2018</date>
+        <time>08:00</time>
+        <message>Es war sehr schön!</message>
+    </entry>
+    <entry>
+        <id>002</id>
+        <name>Heidi Schöner</name>
+        <date>28.10.2018</date>
+        <time>09:15</time>
+        <message>Super Service! Ich möchte mich bei allen bedanken.</message>
+    </entry>
+    <entry>
+        <id>003</id>
+        <name>Peter Klein</name>
+        <date>29.10.2018</date>
+        <time>13:15</time>
+        <message>Ich habe immer gut gegesen.</message>
+    </entry>
+    
+</guestbook>
