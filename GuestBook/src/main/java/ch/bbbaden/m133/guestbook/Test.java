@@ -12,14 +12,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import org.jdom2.Document;
-import org.jdom2.Element;
 import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
 
 /**
  *
@@ -57,7 +53,7 @@ public class Test implements Serializable {
     }
     
     public void makeEntry() throws JDOMException, IOException{
-        new LoginDAO().setEntry(entry);
+        new LoginDAO().setEntry(entry, username);
         this.setEntry("");
     }
     

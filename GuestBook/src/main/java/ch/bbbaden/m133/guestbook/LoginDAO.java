@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.context.FacesContext;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -56,30 +58,32 @@ public class LoginDAO {
         return null;
     }
 
-    public void setEntry(String e) throws JDOMException, IOException {
-        Date today = Calendar.getInstance().getTime();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String datum = formatter.format(today);
-        formatter = new SimpleDateFormat("HH:mm:ss");
-        String zeit = formatter.format(today);
-        String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("");
-        path = path + "\\WEB-INF\\guestList.xml";
-
-        Test login = new Test();
-
-        Document document = new SAXBuilder().build(path);
-        Element guestbook = document.getRootElement();
-        Element entry = new Element("entry");
-        entry.addContent(new Element("id").setText(Integer.toString(this.getXMLid() + 1)));
-        entry.addContent(new Element("name").setText(login.getUsername()));
-        entry.addContent(new Element("date").setText(datum));
-        entry.addContent(new Element("time").setText(zeit));
-        entry.addContent(new Element("message").setText(e));
-        guestbook.addContent(entry);
-
-        XMLOutputter xmlOutput = new XMLOutputter();
-        xmlOutput.setFormat(Format.getPrettyFormat());
-        xmlOutput.output(document, new FileWriter(new File(path)));
+    public void setEntry(String e, String user) {
+        try {
+            Date today = Calendar.getInstance().getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+            String datum = formatter.format(today);
+            formatter = new SimpleDateFormat("HH:mm");
+            String zeit = formatter.format(today);
+            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("");
+            path = path + "\\WEB-INF\\guestList.xml";
+            
+            Document document = new SAXBuilder().build(path);
+            Element guestbook = document.getRootElement();
+            Element entry = new Element("entry");
+            entry.addContent(new Element("id").setText(Integer.toString(this.getXMLid() + 1)));
+            entry.addContent(new Element("name").setText(user));
+            entry.addContent(new Element("date").setText(datum));
+            entry.addContent(new Element("time").setText(zeit));
+            entry.addContent(new Element("message").setText(e));
+            guestbook.addContent(entry);
+            
+            XMLOutputter xmlOutput = new XMLOutputter();
+            xmlOutput.setFormat(Format.getPrettyFormat());
+            xmlOutput.output(document, new FileWriter(new File(path)));
+        } catch (IOException | JDOMException ex) {
+            Logger.getLogger(LoginDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -117,7 +121,7 @@ public class LoginDAO {
             entry.setName(node.getChildText("name"));
             entry.setMessage(node.getChildText("message"));
 
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm");
             String dateInString = node.getChildText("date");
             String timeInString = node.getChildText("time");
             String dateTime = dateInString + " " + timeInString;
